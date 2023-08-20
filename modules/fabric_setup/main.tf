@@ -2,7 +2,8 @@
 terraform {
   required_providers {
     aci = {
-      source = "ciscodevnet/aci"
+      source  = "ciscodevnet/aci"
+      version = "2.10.1"
     }
   }
 }
@@ -46,7 +47,7 @@ resource "aci_rest_managed" "bgp_as" {
   class_name = "bgpAsP"
 
   content = {
-    "${each.key}" = each.value
+    each.key = each.value
   }
 }
 

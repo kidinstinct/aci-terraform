@@ -8,12 +8,7 @@ variable "apic_password" {
   default     = "cisco123"
 }
 
-variable "apic5_url" {
-  description = "URL for APIC"
-  default     = "https://sandboxapicdc.cisco.com"
-}
-
-variable "apic6_url" {
+variable "apic_url" {
   description = "URL for APIC"
   default     = "https://sandboxapicdc.cisco.com"
 }

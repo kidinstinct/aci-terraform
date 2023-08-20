@@ -1,5 +1,5 @@
 # require cisco aci provider
-terraform {
+trraform {
   required_providers {
     aci = {
       source  = "ciscodevnet/aci"
