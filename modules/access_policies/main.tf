@@ -1,5 +1,4 @@
-# require cisco aci provider
-trraform {
+terraform {
   required_providers {
     aci = {
       source  = "ciscodevnet/aci"
@@ -10,7 +9,7 @@ trraform {
 
 # create vlan pool
 resource "aci_vlan_pool" "this" {
-  for_each    = length(var.vlan_pools) > 0 ? { for v in var.vlan_pools : v.name => v } : {}
+  for_each    = var.deploy && length(var.vlan_pools) > 0 ? { for v in var.vlan_pools : v.name => v } : {}
   name        = each.value.name
   name_alias  = each.value.name_alias
   annotation  = each.value.annotation
@@ -20,7 +19,7 @@ resource "aci_vlan_pool" "this" {
 
 # create vlan pool range
 resource "aci_ranges" "this" {
-  for_each     = length(aci_vlan_pool.this) > 0 ? { for k, v in var.vlan_ranges : k => v } : {}
+  for_each     = var.deploy && length(aci_vlan_pool.this) > 0 ? { for k, v in var.vlan_ranges : k => v } : {}
   vlan_pool_dn = element([for v in aci_vlan_pool.this : v.id], each.key)
   from         = each.value.from
   to           = each.value.to

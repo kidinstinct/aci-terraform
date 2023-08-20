@@ -1,3 +1,9 @@
+variable "deploy" {
+  description = "Whether to deploy or the access policies"
+  type        = bool
+  default     = false
+}
+
 variable "environment" {
   description = "Environment"
   default     = "dev"

@@ -1,3 +1,9 @@
+variable "deploy" {
+  description = "Whether to deploy or the access policies"
+  type        = bool
+  default     = false
+}
+
 variable "fabric_nodes" {
   description = "List of fabric nodes to be created"
   type = list(object({
