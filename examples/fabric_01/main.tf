@@ -1,5 +1,5 @@
 module "fabric_setup" {
-  count                = var.deploy ? 1 : 0
+  count                = var.configure_fabric ? 1 : 0
   source               = "../../modules/fabric_setup"
   providers            = { aci = aci.aci_cert }
   deploy               = true
@@ -10,12 +10,13 @@ module "fabric_setup" {
 }
 
 module "access_policies" {
-  count       = var.deploy ? 1 : 0
+  count       = var.deploy_access_policies ? 1 : 0
   source      = "../../modules/access_policies"
   providers   = { aci = aci.aci_cert }
-  deploy      = false
-  environment = var.environment
+  deploy      = true
   vlan_pools  = local.access_policies.vlan_pools
   vlan_ranges = local.access_policies.vlan_ranges
+
+  # environment = var.environment
   # leaf_profile_name = "leaf_101_102_baremetal"
 }

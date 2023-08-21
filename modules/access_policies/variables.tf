@@ -4,11 +4,6 @@ variable "deploy" {
   default     = false
 }
 
-variable "environment" {
-  description = "Environment"
-  default     = "dev"
-}
-
 variable "vlan_pools" {
   description = "Name"
   type = list(object({
