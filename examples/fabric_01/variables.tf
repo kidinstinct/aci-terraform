@@ -46,7 +46,7 @@ variable "is_insecure" {
   default     = true
 }
 
-variable "environment" {
+variable "env" {
   description = "Environment"
   type        = string
   default     = "dev"
