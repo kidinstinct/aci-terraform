@@ -7,6 +7,7 @@ module "fabric_setup" {
   fabric_wide_settings = local.fabric_wide_settings
   bgp_as_info          = local.bgp_as_info
   bgp_rrs              = local.bgp_rrs
+  env                  = var.env
 }
 
 module "access_policies" {
@@ -16,7 +17,7 @@ module "access_policies" {
   deploy      = true
   vlan_pools  = local.access_policies.vlan_pools
   vlan_ranges = local.access_policies.vlan_ranges
+  env         = var.env
 
-  # environment = var.environment
   # leaf_profile_name = "leaf_101_102_baremetal"
 }

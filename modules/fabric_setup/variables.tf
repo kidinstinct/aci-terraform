@@ -63,3 +63,9 @@ variable "bgp_rrs" {
   }))
   default = []
 }
+
+variable "env" {
+  description = "Environment"
+  type        = string
+  default     = "dev"
+}

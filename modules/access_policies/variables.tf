@@ -39,3 +39,9 @@ variable "vlan_ranges" {
     alloc_mode = "inherit"
   }]
 }
+
+variable "env" {
+  description = "Environment"
+  type        = string
+  default     = "dev"
+}
