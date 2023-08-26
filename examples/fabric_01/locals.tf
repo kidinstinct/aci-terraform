@@ -47,6 +47,7 @@ locals {
       role        = "spine"
       serial      = "TEP-1-104"
   }]
+
   fabric_wide_settings = [{
     name                        = "fabric_wide_settings"
     disable_ep_dampening        = "yes"
@@ -57,10 +58,12 @@ locals {
     unicast_xr_ep_learn_disable = "yes"
     validate_overlapping_vlans  = "yes"
   }]
+
   bgp_as_info = {
     asn  = "65000"
     name = "default"
   }
+
   bgp_rrs = [
     {
       name    = "spine103"
@@ -73,6 +76,7 @@ locals {
       pod_id  = 1
     }
   ]
+
   physical_domains = [
     {
       name        = join("_", ["baremetal", terraform.workspace])
@@ -81,6 +85,7 @@ locals {
       description = "Physical domain for baremetal domain in ${terraform.workspace} environment"
     }
   ]
+
   vlan_pools = {
     "baremetal" = [{
       name        = join("_", ["baremetal", terraform.workspace])
@@ -120,6 +125,16 @@ locals {
         range_role = "external"
         alloc_mode = "inherit"
       },
+    ]
+  }
+
+  aeeps = {
+    "baremetal" = [
+      {
+        name       = join("_", ["baremetal", terraform.workspace])
+        name_alias = join("_", ["baremetal", terraform.workspace])
+        annotation = join(":", ["tag", "baremetal", terraform.workspace])
+      }
     ]
   }
 }

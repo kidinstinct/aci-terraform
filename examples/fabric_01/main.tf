@@ -36,3 +36,11 @@ module "phys_domains" {
   vlan_pool_ids    = module.baremetal_vlan_pools.vlan_pool_ids
 }
 
+module "phys_aeep" {
+  source    = "../../modules/aeep"
+  providers = { aci = aci.aci_cert }
+  deploy    = true
+  aeep      = local.aeeps["baremetal"]
+  domain    = module.phys_domains.domain_ids[0]
+}
+

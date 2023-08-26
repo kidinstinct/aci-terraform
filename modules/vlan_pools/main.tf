@@ -21,21 +21,6 @@ output "vlan_pool_ids" {
   value = [for v in aci_vlan_pool.this : v.id]
 }
 
-# # create aaep
-# resource "aci_attachable_access_entity_profile" "this" {
-#   name        = join("_", [var.vlan_pool_name, terraform.workspace, "aaep"])
-#   name_alias  = join("_", [var.vlan_pool_name, terraform.workspace, "aaep"])
-#   annotation  = join(":", ["tag", var.vlan_pool_name, terraform.workspace])
-#   description = "AAEP for ${var.vlan_pool_name} in ${terraform.workspace} environment"
-# }
-
-# # create aaep to physical domain
-# resource "aci_aaep_to_domain" "this" {
-#   annotation                          = join(":", ["tag", var.vlan_pool_name, terraform.workspace])
-#   attachable_access_entity_profile_dn = aci_attachable_access_entity_profile.this.id
-#   domain_dn                           = aci_physical_domain.this.id
-# }
-
 # # create leaf profile
 # resource "aci_leaf_profile" "this" {
 #   name        = join("_", [var.vlan_pool_name, terraform.workspace, var.leaf_profile_name])

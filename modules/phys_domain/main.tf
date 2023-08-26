@@ -15,3 +15,7 @@ resource "aci_physical_domain" "this" {
   annotation                = each.value.annotation
   relation_infra_rs_vlan_ns = element([for v in var.vlan_pool_ids : v], each.key)
 }
+
+output "domain_ids" {
+  value = [for v in aci_physical_domain.this : v.id]
+}
