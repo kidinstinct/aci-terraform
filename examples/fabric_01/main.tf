@@ -11,13 +11,14 @@ module "fabric_setup" {
 }
 
 module "access_policies" {
-  count       = var.deploy_access_policies ? 1 : 0
-  source      = "../../modules/access_policies"
-  providers   = { aci = aci.aci_cert }
-  deploy      = true
-  vlan_pools  = local.access_policies.vlan_pools
-  vlan_ranges = local.access_policies.vlan_ranges
-  env         = var.env
+  count            = var.deploy_access_policies ? 1 : 0
+  source           = "../../modules/access_policies"
+  providers        = { aci = aci.aci_cert }
+  deploy           = true
+  vlan_pools       = local.vlan_pools
+  vlan_ranges      = local.vlan_ranges
+  physical_domains = local.physical_domains
+  env              = var.env
 
   # leaf_profile_name = "leaf_101_102_baremetal"
 }

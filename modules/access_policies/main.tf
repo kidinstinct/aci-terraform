@@ -28,12 +28,13 @@ resource "aci_ranges" "this" {
 }
 
 # # create physical domain
-# resource "aci_physical_domain" "this" {
-#   name                      = join("_", [var.vlan_pool_name, terraform.workspace, "domain"])
-#   name_alias                = join("_", [var.vlan_pool_name, terraform.workspace, "domain"])
-#   annotation                = join(":", ["tag", var.vlan_pool_name, terraform.workspace])
-#   relation_infra_rs_vlan_ns = aci_vlan_pool.this.id
-# }
+resource "aci_physical_domain" "this" {
+  for_each                  = var.deploy ? { for k, v in var.physical_domains : k => v } : {}
+  name                      = each.value.name
+  name_alias                = each.value.name_alias
+  annotation                = each.value.annotation
+  relation_infra_rs_vlan_ns = aci_vlan_pool.this[join("_", ["baremetal", terraform.workspace])].id
+}
 
 # # create aaep
 # resource "aci_attachable_access_entity_profile" "this" {
