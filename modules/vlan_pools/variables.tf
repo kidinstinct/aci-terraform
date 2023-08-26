@@ -23,23 +23,6 @@ variable "vlan_pools" {
   }]
 }
 
-variable "vlan_ranges" {
-  description = "VLAN ranges for created VLAN pools"
-  type = list(object({
-    from       = string
-    to         = string
-    range_role = string
-    alloc_mode = string
-  }))
-
-  default = [{
-    from       = "value"
-    to         = "value"
-    range_role = "value"
-    alloc_mode = "inherit"
-  }]
-}
-
 variable "env" {
   description = "Environment"
   type        = string

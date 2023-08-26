@@ -10,23 +10,28 @@ module "fabric_setup" {
   env                  = var.env
 }
 
-module "vlan_pools" {
-  count       = var.deploy_access_policies ? 1 : 0
-  source      = "../../modules/vlan_pools"
-  providers   = { aci = aci.aci_cert }
-  deploy      = true
-  vlan_pools  = local.vlan_pools
-  vlan_ranges = local.vlan_ranges
-  env         = var.env
+module "baremetal_vlan_pools" {
+  source     = "../../modules/vlan_pools"
+  providers  = { aci = aci.aci_cert }
+  deploy     = true
+  vlan_pools = local.vlan_pools[0]
+  env        = var.env
 
   # leaf_profile_name = "leaf_101_102_baremetal"
 }
 
+module "baremetal_vlan_ranges" {
+  source        = "../../modules/vlan_ranges"
+  providers     = { aci = aci.aci_cert }
+  deploy        = true
+  vlan_ranges   = local.vlan_ranges[0]
+  vlan_pool_ids = module.baremetal_vlan_pools.vlan_pool_ids
+}
+
 module "phys_domains" {
-  count            = var.deploy_phys_domains ? 1 : 0
   source           = "../../modules/phys_domain"
   providers        = { aci = aci.aci_cert }
   deploy           = true
   physical_domains = local.physical_domains
-  vlan_pool_ids    = module.vlan_pools[0].vlan_pool_ids
+  vlan_pool_ids    = module.baremetal_vlan_pools.vlan_pool_ids
 }
