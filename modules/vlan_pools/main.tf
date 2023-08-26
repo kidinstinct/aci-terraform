@@ -27,13 +27,8 @@ resource "aci_ranges" "this" {
   role         = each.value.range_role
 }
 
-# # create physical domain
-resource "aci_physical_domain" "this" {
-  for_each                  = var.deploy ? { for k, v in var.physical_domains : k => v } : {}
-  name                      = each.value.name
-  name_alias                = each.value.name_alias
-  annotation                = each.value.annotation
-  relation_infra_rs_vlan_ns = aci_vlan_pool.this[join("_", ["baremetal", terraform.workspace])].id
+output "vlan_pool_ids" {
+  value = [for v in aci_vlan_pool.this : v.id]
 }
 
 # # create aaep
