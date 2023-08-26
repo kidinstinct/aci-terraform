@@ -7,7 +7,7 @@ variable "configure_fabric" {
 variable "deploy_access_policies" {
   description = "Wheter to deploy the module or not"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "apic_username" {
@@ -50,4 +50,10 @@ variable "env" {
   description = "Environment"
   type        = string
   default     = "dev"
+}
+
+variable "deploy_phys_domains" {
+  description = "Deploy Physical Domains?"
+  type        = bool
+  default     = true
 }
