@@ -1,5 +1,4 @@
 module "fabric_setup" {
-  count                = var.configure_fabric ? 1 : 0
   source               = "../../modules/fabric_setup"
   providers            = { aci = aci.aci_cert }
   deploy               = true

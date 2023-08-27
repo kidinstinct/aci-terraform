@@ -1,9 +1,3 @@
-variable "configure_fabric" {
-  description = "Wheter to deploy the module or not"
-  type        = bool
-  default     = true
-}
-
 variable "apic_username" {
   description = "Username for APIC"
   type        = string
