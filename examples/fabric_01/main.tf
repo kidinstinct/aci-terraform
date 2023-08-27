@@ -21,12 +21,14 @@ module "vlan_pools" {
   # leaf_profile_name = "leaf_101_102_baremetal"
 }
 
-module "baremetal_vlan_ranges" {
-  source        = "../../modules/vlan_ranges"
-  providers     = { aci = aci.aci_cert }
-  deploy        = true
-  vlan_ranges   = local.vlan_ranges["baremetal"]
-  vlan_pool_ids = module.vlan_pools["baremetal"].vlan_pool_id
+module "vlan_ranges" {
+  source    = "../../modules/vlan_ranges"
+  providers = { aci = aci.aci_cert }
+  deploy    = true
+
+  for_each     = local.vlan_ranges
+  vlan_range   = each.value
+  vlan_pool_id = module.vlan_pools[each.key].vlan_pool_id[0]
 }
 
 # module "phys_domains" {

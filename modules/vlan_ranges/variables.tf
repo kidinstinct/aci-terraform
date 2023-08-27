@@ -10,19 +10,19 @@ variable "env" {
   default     = "dev"
 }
 
-variable "vlan_ranges" {
-  description = "Vlan Ranges"
+variable "vlan_range" {
+  description = "Vlan Range"
   type = list(object({
     from       = string
     to         = string
     range_role = string
-    alloc_mode = string
+    alloc_mode = optional(string)
   }))
 }
 
-variable "vlan_pool_ids" {
+variable "vlan_pool_id" {
   description = "Vlan Pool DN"
-  type        = list(string)
-  default     = []
+  type        = string
+  default     = ""
 }
 
