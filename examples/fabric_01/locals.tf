@@ -129,12 +129,11 @@ locals {
   }
 
   aeeps = {
-    "baremetal" = [
-      {
-        name       = join("_", ["baremetal", terraform.workspace])
-        name_alias = join("_", ["baremetal", terraform.workspace])
-        annotation = join(":", ["tag", "baremetal", terraform.workspace])
-      }
-    ]
+    "baremetal" = {
+      name       = join("_", ["baremetal", terraform.workspace])
+      name_alias = join("_", ["baremetal", terraform.workspace])
+      annotation = join(":", ["tag", "baremetal", terraform.workspace])
+    }
+
   }
 }

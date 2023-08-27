@@ -6,19 +6,19 @@ variable "deploy" {
 
 variable "aeep" {
   description = "Attachable Access Entity Profile"
-  type = list(object({
+  type = object({
     name        = string
     name_alias  = optional(string)
     annotation  = optional(string)
     description = optional(string)
-  }))
+  })
 
-  default = [{
+  default = {
     name        = ""
     name_alias  = ""
     annotation  = ""
     description = ""
-  }]
+  }
 }
 
 variable "domain" {

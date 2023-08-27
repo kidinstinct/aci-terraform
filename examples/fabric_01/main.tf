@@ -41,11 +41,13 @@ module "phys_domains" {
   vlan_pool_ids = module.vlan_pools[each.key].vlan_pool_id
 }
 #
-# module "phys_aeep" {
-#   source    = "../../modules/aeep"
-#   providers = { aci = aci.aci_cert }
-#   deploy    = true
-#   aeep      = local.aeeps["baremetal"]
-#   domain    = module.phys_domains.domain_ids[0]
-# }
-#
+module "aeeps" {
+  source    = "../../modules/aeep"
+  providers = { aci = aci.aci_cert }
+  deploy    = true
+
+  for_each = local.aeeps
+  aeep     = each.value
+  domain   = module.phys_domains[each.key].domain_ids[0]
+}
+

@@ -9,11 +9,11 @@ terraform {
 
 # create aaep
 resource "aci_attachable_access_entity_profile" "this" {
-  for_each    = var.deploy ? { for k, v in var.aeep : k => v } : {}
-  name        = each.value.name
-  name_alias  = each.value.name_alias
-  annotation  = each.value.annotation
-  description = each.value.description
+  count       = var.deploy && length(var.aeep) > 0 ? 1 : 0
+  name        = var.aeep.name
+  name_alias  = var.aeep.name_alias
+  annotation  = var.aeep.annotation
+  description = var.aeep.description
 }
 
 output "aeep_ids" {
