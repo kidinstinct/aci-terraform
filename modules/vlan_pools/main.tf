@@ -9,16 +9,16 @@ terraform {
 
 # create vlan pool
 resource "aci_vlan_pool" "this" {
-  for_each    = var.deploy ? { for v in var.vlan_pools : v.name => v } : {}
-  name        = each.value.name
-  name_alias  = each.value.name_alias
-  annotation  = each.value.annotation
-  description = each.value.description
-  alloc_mode  = each.value.alloc_mode
+  count       = var.deploy ? 1 : 0
+  name        = var.vlan_pool.name
+  name_alias  = var.vlan_pool.name_alias
+  annotation  = var.vlan_pool.annotation
+  description = var.vlan_pool.description
+  alloc_mode  = var.vlan_pool.alloc_mode
 }
 
-output "vlan_pool_ids" {
-  value = [for v in aci_vlan_pool.this : v.id]
+output "vlan_pool_id" {
+  value = aci_vlan_pool.this[*].id
 }
 
 # # create leaf profile

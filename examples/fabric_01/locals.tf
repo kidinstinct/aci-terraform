@@ -87,20 +87,20 @@ locals {
   ]
 
   vlan_pools = {
-    "baremetal" = [{
+    "baremetal" = {
       name        = join("_", ["baremetal", terraform.workspace])
       name_alias  = join("_", ["baremetal", terraform.workspace])
       annotation  = join(":", ["tag", "baremetal", terraform.workspace])
       description = "Vlan pool for baremetal domain in ${terraform.workspace} environment"
       alloc_mode  = "static"
-    }, ],
-    "vmm" = [{
+    },
+    "vmm" = {
       name        = join("_", ["vmm", terraform.workspace])
       name_alias  = join("_", ["vmm", terraform.workspace])
       annotation  = join(":", ["tag", "vmm", terraform.workspace])
       description = "Vlan pool for vmm domain in ${terraform.workspace} environment"
       alloc_mode  = "dynamic"
-    }, ]
+    }
   }
 
   vlan_ranges = {
