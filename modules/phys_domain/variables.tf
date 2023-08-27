@@ -10,23 +10,23 @@ variable "env" {
   default     = "dev"
 }
 
-variable "physical_domains" {
+variable "domains" {
   description = "Physical Baremetal Domain"
-  type = list(object({
+  type = object({
     name         = string
     name_alias   = optional(string)
     annotation   = optional(string)
     description  = optional(string)
     vlan_pool_dn = optional(string)
-  }))
+  })
 
-  default = [{
+  default = {
     name         = ""
     name_alias   = ""
     annotation   = ""
     description  = ""
     vlan_pool_dn = ""
-  }]
+  }
 }
 
 variable "vlan_pool_ids" {

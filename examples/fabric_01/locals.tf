@@ -77,14 +77,14 @@ locals {
     }
   ]
 
-  physical_domains = [
-    {
+  domains = {
+    "baremetal" = {
       name        = join("_", ["baremetal", terraform.workspace])
       name_alias  = join("_", ["baremetal", terraform.workspace])
       annotation  = join(":", ["tag", "baremetal", terraform.workspace])
       description = "Physical domain for baremetal domain in ${terraform.workspace} environment"
     }
-  ]
+  }
 
   vlan_pools = {
     "baremetal" = {

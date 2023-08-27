@@ -9,11 +9,11 @@ terraform {
 
 # create physical domain
 resource "aci_physical_domain" "this" {
-  for_each                  = var.deploy ? { for k, v in var.physical_domains : k => v } : {}
-  name                      = each.value.name
-  name_alias                = each.value.name_alias
-  annotation                = each.value.annotation
-  relation_infra_rs_vlan_ns = element([for v in var.vlan_pool_ids : v], each.key)
+  count                     = var.deploy && length(var.domains) > 0 ? length(var.domains) : 0
+  name                      = var.domains.name
+  name_alias                = var.domains.name_alias
+  annotation                = var.domains.annotation
+  relation_infra_rs_vlan_ns = element([for v in var.vlan_pool_ids : v], count.index)
 }
 
 output "domain_ids" {

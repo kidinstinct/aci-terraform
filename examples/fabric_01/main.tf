@@ -31,13 +31,15 @@ module "vlan_ranges" {
   vlan_pool_id = module.vlan_pools[each.key].vlan_pool_id[0]
 }
 
-# module "phys_domains" {
-#   source           = "../../modules/phys_domain"
-#   providers        = { aci = aci.aci_cert }
-#   deploy           = true
-#   physical_domains = local.physical_domains
-#   vlan_pool_ids    = module.pools.vlan_pool_ids
-# }
+module "phys_domains" {
+  source    = "../../modules/phys_domain"
+  providers = { aci = aci.aci_cert }
+  deploy    = true
+
+  for_each      = local.domains
+  domains       = each.value
+  vlan_pool_ids = module.vlan_pools[each.key].vlan_pool_id
+}
 #
 # module "phys_aeep" {
 #   source    = "../../modules/aeep"
